@@ -1,0 +1,24 @@
+@mixin img-svg($file-png, $file-svg:null){
+	$str-index-numb: str-index($file-png, '.png');
+	$file-png-ext:'';
+	$file-svg-ext:'';
+	
+
+	@if($str-index-numb) {
+		$filename: str-slice($file-png, 0, ($str-index-numb - 1));
+		$file-png-ext: $file-png;
+
+		@if($file-svg == null) {
+			$file-svg-ext: str-insert($filename, '.svg', -1);
+		} @else{
+			$file-svg-ext: $file-svg;
+		}
+	} @else {
+		@warn "#{$file-png} : No extension found, assuming same filename for png and svg.";
+		$file-png-ext: str-insert($file-png, '.png', -1);
+		$file-svg-ext: str-insert($file-png, '.svg', -1);
+	}
+
+	background-image:url($file-png-ext);
+	background-image:none,url($file-svg-ext);
+}

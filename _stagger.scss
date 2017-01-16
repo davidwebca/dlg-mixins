@@ -1,0 +1,14 @@
+@mixin stagger($num:4, $prop:all, $duration:250ms, $trans:ease-out, $stag:100ms, $init:0ms) {
+	@for $i from 1 through $num {
+		&:nth-child(#{$i}) {
+			@if type-of($prop) != 'list' {
+				$prop: ($prop);
+			}
+			$rule:();
+			@each $trans-prop in $prop {
+				$rule: append($rule, $trans-prop $duration $trans ($i * $stag + $init), 'comma');
+			}
+			transition: $rule;
+		}
+	}
+}

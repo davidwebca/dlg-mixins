@@ -4,7 +4,10 @@
     "david_treblig <info@dlg.pw>"
   ],
   "description": "Set of SCSS mixins I use daily",
-  "main": "_tools.scss",
+  "main": [
+    "_tools.scss",
+    "images/*" 
+  ],
   "keywords": [
     "scss",
     "mixins",

@@ -1,5 +1,5 @@
 {
-  "name": "DLG Mixins",
+  "name": "dlg-mixins",
   "authors": [
     "david_treblig <info@dlg.pw>"
   ],
@@ -18,6 +18,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "*.sublime-project",
+    "*.sublime-workspace"
   ]
 }

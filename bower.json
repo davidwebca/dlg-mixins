@@ -1,0 +1,23 @@
+{
+  "name": "DLG Mixins",
+  "authors": [
+    "david_treblig <info@dlg.pw>"
+  ],
+  "description": "Set of SCSS mixins I use daily",
+  "main": "_tools.scss",
+  "keywords": [
+    "scss",
+    "mixins",
+    "svg",
+    "stagger"
+  ],
+  "homepage": "http://dlg.pw",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -5,9 +5,7 @@
   ],
   "description": "Set of SCSS mixins I use daily",
   "main": [
-    "_tools.scss",
-    "images/grayscale.svg",
-    "images/grayscale-remove.svg" 
+    "_tools.scss" 
   ],
   "keywords": [
     "scss",

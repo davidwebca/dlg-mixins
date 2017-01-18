@@ -19,7 +19,7 @@
 	$translateZ: $depth * 1px;
 	$scale: 1 + ($depth * -1) / $perspective;
 
-	transform: translate3d($translateX,$translateY,-1px) scale($scale);
+	transform: translate3d($translateX,$translateY,$translateZ) scale($scale);
 	transform-origin-x: 100%;
 	@warn "Using CSS parallax: don't forget to add to the body : height:100vh; -webkit-overflow-scrolling: touch;";
 }

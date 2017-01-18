@@ -8,7 +8,7 @@
 
 @mixin parallax-parent($perspective: 1, $parent-height: 100vh) {
 	perspective: ($perspective * 1px);
-	perspective-origin-x: 100%;
+	perspective-origin: 100% 50%;
 	transform-style: preserve-3d;
 	height: $parent-height;
 	overflow-x: hidden;
@@ -20,6 +20,6 @@
 	$scale: 1 + ($depth / $perspective);
 
 	transform: translate3d($translateX,$translateY,$translateZ) scale($scale);
-	transform-origin-x: 100%;
+	transform-origin: 100% 50% 0;
 	@warn "Using CSS parallax: don't forget to add to the body : height:100vh; -webkit-overflow-scrolling: touch;";
 }

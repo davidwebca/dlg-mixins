@@ -16,8 +16,8 @@
 }
 
 @mixin parallax-child($depth: 1, $perspective:1, $translateX: 0, $translateY: -50%) {
-	$scale: $perspective + $depth;
-	$translateZ: (0 - $depth) * $perspective * 1px;
+	$translateZ: $depth * 1px;
+	$scale: 1 + ($depth * -1) / $perspective;
 
 	transform: translate3d($translateX,$translateY,-1px) scale($scale);
 	transform-origin-x: 100%;

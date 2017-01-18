@@ -1,13 +1,13 @@
-@mixin parallax($depth: 1, $child-selector:'.parallax-child', $translateX: 0, $translateY: -50%, $perspective: 1px, $parent-height:100vh) {
+@mixin parallax($depth: 1, $child-selector:'.parallax-child', $translateX: 0, $translateY: -50%, $perspective: 1, $parent-height:100vh) {
 	@include parallax-parent($perspective, $parent-height);
 
 	#{$child-selector} {
-		@include parallax-child($depth, $translateX, $translateY);
+		@include parallax-child($depth, $perspective, $translateX, $translateY);
 	}
 }
 
-@mixin parallax-parent($perspective: 1px, $parent-height: 100vh) {
-	perspective: $perspective;
+@mixin parallax-parent($perspective: 1, $parent-height: 100vh) {
+	perspective: ($perspective * 1px);
 	perspective-origin-x: 100%;
 	transform-style: preserve-3d;
 	height: $parent-height;
@@ -15,9 +15,9 @@
     overflow-y: auto;
 }
 
-@mixin parallax-child($depth: 1, $translateX: 0, $translateY: -50%) {
-	$scale: 1 + $depth;
-	$translateZ: (0 - $depth) * 1px;
+@mixin parallax-child($depth: 1, $perspective:1, $translateX: 0, $translateY: -50%) {
+	$scale: $perspective + $depth;
+	$translateZ: (0 - $depth) * $perspective * 1px;
 
 	transform: translate3d($translateX,$translateY,-1px) scale($scale);
 	transform-origin-x: 100%;

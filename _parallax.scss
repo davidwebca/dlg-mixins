@@ -1,4 +1,4 @@
-@mixin parallax($depth: 1, $child-selector:'.parallax-child', $translateX: 0, $translateY: -50%, $perspective: 1, $parent-height:100vh) {
+@mixin parallax($depth: 1, $child-selector:'.parallax-child', $perspective: 1, $translateX: 0, $translateY: -50%, $parent-height:100vh) {
 	@include parallax-parent($perspective, $parent-height);
 
 	#{$child-selector} {

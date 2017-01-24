@@ -18,7 +18,8 @@
 
 
     function TargetToggle( element, options ) {
-        this.element = element;
+        this.plainElement = element;
+        this.element = $(element);
 
         var dataOptions = {
             event: this.element.data('event'),

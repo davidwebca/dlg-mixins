@@ -42,7 +42,7 @@
 
     TargetToggle.prototype = {
         init: function() {
-            this.element.on(this.options.event, this.toggle);
+            this.element.on(this.options.event, this.toggle.bind(this));
         },
 
         toggle: function(e){

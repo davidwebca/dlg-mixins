@@ -3,9 +3,10 @@
   "authors": [
     "david_treblig <info@dlg.pw>"
   ],
-  "description": "Set of SCSS mixins I use daily",
+  "description": "Set of SCSS mixins and JS functions I use daily",
   "main": [
-    "_tools.scss" 
+    "_tools.scss",
+    "js/targetToggle.jquery.js"
   ],
   "keywords": [
     "scss",
@@ -23,5 +24,9 @@
     "tests",
     "*.sublime-project",
     "*.sublime-workspace"
-  ]
+  ],
+  "dependencies": {
+    "jquery-bez": "^1.0.11",
+    "flexibility": "^2.0.1"
+  }
 }

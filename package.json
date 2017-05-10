@@ -1,0 +1,22 @@
+{
+  "version": "0.2",
+  "name": "dlg-mixins",
+  "authors": [
+    "DavidWebCA <info@davidweb.ca>"
+  ],
+  "description": "Set of SCSS mixins and JS functions I use daily",
+  "keywords": [
+    "scss",
+    "mixins",
+    "svg",
+    "stagger"
+  ],
+  "homepage": "http://davidweb.ca",
+  "private": true,
+  "devDependencies": {
+    "jquery-bez": "^1.0.11",
+    "flexibility": "^2.0.1"
+  }
+}
+
+    

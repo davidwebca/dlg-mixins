@@ -1,6 +1,6 @@
 /*!
  * Target Toggle
- * Original author: @david_treblig
+ * Original author: @davidwebca
  * Licensed under the MIT license
  * Allows an element to trigger a class change on self, single external element or multiple external elements.
  */

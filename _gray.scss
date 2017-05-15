@@ -1,4 +1,4 @@
-.grayscale{
+%grayscale{
 	filter: url("../images/grayscale.svg#grayscale"); /* Firefox 10+, Firefox on Android */
     -moz-filter: grayscale(1);
     -ms-filter: grayscale(1);
@@ -8,7 +8,7 @@
     -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
 }
 
-.grayscale-remove{
+%grayscale-remove{
 	filter: url("../images/grayscale-remove.svg#grayscale"); /* Firefox 10+, Firefox on Android */
    -moz-filter: grayscale(0);
     -ms-filter: grayscale(0);

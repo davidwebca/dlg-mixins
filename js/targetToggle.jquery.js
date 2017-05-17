@@ -24,9 +24,9 @@
         var dataOptions = {
             event: this.element.data('event'),
             target: this.element.data('target'),
-            preventDefault: this.element.data('preventDefault'),
-            stopPropagation: this.element.data('stopPropagation'),
-            className: this.element.data('className'),
+            preventDefault: this.element.data('prevent-default'),
+            stopPropagation: this.element.data('stop-propagation'),
+            className: this.element.data('class-name'),
             delay: this.element.data('delay')
         };
 

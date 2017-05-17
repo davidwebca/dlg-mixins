@@ -60,7 +60,8 @@
                     }
                 }, this.options.delay);
             }else{
-                this.close.bind(this);
+                this.target.toggleClass(this.options.className);
+                this.element.toggleClass('has-'+this.options.className);
 
                 if(this.options.preventDefault){
                     e.preventDefault();
@@ -74,8 +75,8 @@
 
         close: function(){
             if(this.target.hasClass(this.options.className)){
-                this.target.toggleClass(this.options.className);
-                this.element.toggleClass('has-'+this.options.className);
+                this.target.removeClass(this.options.className);
+                this.element.removeClass('has-'+this.options.className);
             }
         }
     };

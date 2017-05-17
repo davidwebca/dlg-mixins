@@ -60,8 +60,7 @@
                     }
                 }, this.options.delay);
             }else{
-                this.target.toggleClass(this.options.className);
-                this.element.toggleClass('has-'+this.options.className);
+                this.close.bind(this);
 
                 if(this.options.preventDefault){
                     e.preventDefault();
@@ -70,6 +69,13 @@
                 if(this.options.stopPropagation){
                     e.stopPropagation();
                 }
+            }
+        },
+
+        close: function(){
+            if(this.target.hasClass(this.options.className)){
+                this.target.toggleClass(this.options.className);
+                this.element.toggleClass('has-'+this.options.className);
             }
         }
     };

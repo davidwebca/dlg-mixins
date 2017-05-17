@@ -71,13 +71,6 @@
                     e.stopPropagation();
                 }
             }
-        },
-
-        close: function(){
-            if(this.target.hasClass(this.options.className)){
-                this.target.removeClass(this.options.className);
-                this.element.removeClass('has-'+this.options.className);
-            }
         }
     };
 

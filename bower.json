@@ -7,7 +7,7 @@
   "description": "Set of SCSS mixins and JS functions I use daily",
   "main": [
     "_tools.scss",
-    "targetToggle.jquery.js"
+    "js/targetToggle.jquery.js"
   ],
   "keywords": [
     "scss",

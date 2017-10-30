@@ -14,6 +14,7 @@
             this.rawProgress = 0;
             this.progress = 0;
             this.animframe = -1;
+            this.scrollframe = -1;
             this.duration = 300;
             this.animationName = window.getComputedStyle(this.el[0])['animation-name'];
 
@@ -38,7 +39,9 @@
     }
 
     window.visibleProgress.prototype.bindEvents = function(){
-        $(window).on('mousewheel.vp scroll.vp resize.vp', this.calculateVisibleProgress.bind(this));
+        $(window).on('mousewheel.vp scroll.vp resize.vp', function(){
+            this.scrollframe = window.requestAnimationFrame(this.calculateVisibleProgress.bind(this));
+        }.bind(this));
     }
     window.visibleProgress.prototype.calculateVisibleProgress = function(ev){
         if(this.absolute){

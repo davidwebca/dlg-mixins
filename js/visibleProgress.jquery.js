@@ -6,7 +6,7 @@
  * on screen and provides a simple number between 0 and 1
  * to allow scroll-progressed animations.
  */
-;(function($, window){
+;(function($, window, document){
     window.visibleProgress = function(el, absolute, absoluteMax, absoluteOffset){
         if(el.length){
             this.el = el;
@@ -36,7 +36,7 @@
 
             this.bindEvents();
             // Already fired load event when instance is created
-            if(window.readyState === "complete"){
+            if(document.readyState === "complete"){
                 $(window).trigger('scroll.vp');
             }
         }
@@ -114,4 +114,4 @@
         window.visibleProgress.loaded = true;
         $(window).trigger('scroll.vp');
     });
-})(jQuery, window);
+})(jQuery, window, document);

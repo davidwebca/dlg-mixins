@@ -35,6 +35,10 @@
             }
 
             this.bindEvents();
+            // Already fired load event when instance is created
+            if(window.readyState === "complete"){
+                $(window).trigger('scroll.vp');
+            }
         }
     }
 

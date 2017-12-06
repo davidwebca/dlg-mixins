@@ -47,8 +47,18 @@
     TargetToggle.prototype = {
         init: function() {
             this.element.on(this.options.event, this.toggle.bind(this));
-            this.target.on('animationend', this.options.animationend);
-            this.target.on('transitionend', this.options.transitionend);
+            this.target.on('animationend', function(ev){
+                // Prevent bubbling problems
+                if(ev.target == this.target[0]){
+                    this.options.animationend(ev);
+                }
+            }.bind(this));
+            this.target.on('transitionend', function(ev){
+                // Prevent bubbling problems
+                if(ev.target == this.target[0]){
+                    this.options.transitionend(ev);
+                }
+            }.bind(this));
         },
 
         toggle: function(e){

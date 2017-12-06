@@ -36,6 +36,8 @@
 
         this.options = $.extend( {}, defaults, options, dataOptions);
         this.target = $(this.options.target);
+        // All who have the same target so we can toggle them all so every element has the same state
+        this.extendedElements = $('[data-target="' + this.options.target + '"]');
         this.delayObj = 0;
 
         this._defaults = defaults;
@@ -65,7 +67,7 @@
             if(typeof this.options.delay=="number" && this.target.hasClass(this.options.className)){
                 this.delayObj = window.setTimeout(function(){
                     this.target.toggleClass(this.options.className);
-                    this.element.toggleClass('has-'+this.options.className);
+                    this.extendedElements.toggleClass('has-'+this.options.className);
 
                     if(this.options.preventDefault){
                         e.preventDefault();
@@ -77,7 +79,7 @@
                 }, this.options.delay);
             }else{
                 this.target.toggleClass(this.options.className);
-                this.element.toggleClass('has-'+this.options.className);
+                this.extendedElements.toggleClass('has-'+this.options.className);
 
                 if(this.options.preventDefault){
                     e.preventDefault();

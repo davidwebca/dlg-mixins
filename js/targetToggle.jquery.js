@@ -47,6 +47,8 @@
     TargetToggle.prototype = {
         init: function() {
             this.element.on(this.options.event, this.toggle.bind(this));
+            this.target.on('animationend', this.options.animationend);
+            this.target.on('transitionend', this.options.transitionend);
         },
 
         toggle: function(e){
@@ -62,9 +64,6 @@
                     if(this.options.stopPropagation){
                         e.stopPropagation();
                     }
-
-                    this.target.on('animationend', this.options.animationend);
-                    this.target.on('transitionend', this.options.transitionend);
                 }, this.options.delay);
             }else{
                 this.target.toggleClass(this.options.className);
@@ -77,9 +76,6 @@
                 if(this.options.stopPropagation){
                     e.stopPropagation();
                 }
-
-                this.target.on('animationend', this.options.animationend);
-                this.target.on('transitionend', this.options.transitionend);
             }
         }
     };

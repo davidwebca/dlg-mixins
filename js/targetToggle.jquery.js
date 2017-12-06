@@ -13,7 +13,9 @@
             preventDefault: false,
             stopPropagation: false,
             className: 'active',
-            delay:false
+            delay:false,
+            animationend:function(){},
+            transitionend:function(){}
         };
 
 
@@ -27,7 +29,9 @@
             preventDefault: this.element.data('prevent-default'),
             stopPropagation: this.element.data('stop-propagation'),
             className: this.element.data('class-name'),
-            delay: this.element.data('delay')
+            delay: this.element.data('delay'),
+            animationend: this.element.data('animationend'),
+            transitionend: this.element.data('transitionend')
         };
 
         this.options = $.extend( {}, defaults, options, dataOptions);
@@ -58,6 +62,9 @@
                     if(this.options.stopPropagation){
                         e.stopPropagation();
                     }
+
+                    this.target.on('animationend', this.options.animationend);
+                    this.target.on('transitionend', this.options.transitionend);
                 }, this.options.delay);
             }else{
                 this.target.toggleClass(this.options.className);
@@ -70,6 +77,9 @@
                 if(this.options.stopPropagation){
                     e.stopPropagation();
                 }
+
+                this.target.on('animationend', this.options.animationend);
+                this.target.on('transitionend', this.options.transitionend);
             }
         }
     };

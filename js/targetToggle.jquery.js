@@ -58,19 +58,19 @@
             this.target.on('animationend', function(e){
                 // Prevent bubbling problems
                 if(e.target == this.target[0]){
-                    this.options.animationend(e);
+                    this.options.animationend(e, this);
                 }
             }.bind(this));
             this.target.on('transitionend', function(e){
                 // Prevent bubbling problems
                 if(e.target == this.target[0]){
-                    this.options.transitionend(e);
+                    this.options.transitionend(e, this);
                 }
             }.bind(this));
         },
 
         toggle: function(e){
-            this.options.beforeToggle(e);
+            this.options.beforeToggle(e, this);
 
             if(this.options.removeOthers){
                 $('.' + this.options.className).not(this.target).removeClass(this.options.className);
@@ -103,7 +103,7 @@
                 }
             }
 
-            this.options.afterToggle(e);
+            this.options.afterToggle(e, this);
         }
     };
 

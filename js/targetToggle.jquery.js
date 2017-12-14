@@ -14,6 +14,8 @@
             stopPropagation: false,
             className: 'active',
             delay:false,
+            removeOthers:false,
+            beforeToggle:function(){},
             animationend:function(){},
             transitionend:function(){}
         };
@@ -30,6 +32,8 @@
             stopPropagation: this.element.data('stop-propagation'),
             className: this.element.data('class-name'),
             delay: this.element.data('delay'),
+            removeOthers: this.element.data('remove-others'),
+            beforeToggle: this.element.data('animationend'),
             animationend: this.element.data('animationend'),
             transitionend: this.element.data('transitionend')
         };
@@ -49,21 +53,28 @@
     TargetToggle.prototype = {
         init: function() {
             this.element.on(this.options.event, this.toggle.bind(this));
-            this.target.on('animationend', function(ev){
+            this.target.on('animationend', function(e){
                 // Prevent bubbling problems
-                if(ev.target == this.target[0]){
-                    this.options.animationend(ev);
+                if(e.target == this.target[0]){
+                    this.options.animationend(e);
                 }
             }.bind(this));
-            this.target.on('transitionend', function(ev){
+            this.target.on('transitionend', function(e){
                 // Prevent bubbling problems
-                if(ev.target == this.target[0]){
-                    this.options.transitionend(ev);
+                if(e.target == this.target[0]){
+                    this.options.transitionend(e);
                 }
             }.bind(this));
         },
 
         toggle: function(e){
+            this.options.beforeToggle(e);
+
+            if(this.options.removeOthers){
+                $('.' + this.options.className).not(this.target).removeClass(this.options.className);
+                $('.has-'+this.options.className).not(e.currentTarget).removeClass('has-'+this.options.className);
+            }
+
             if(typeof this.options.delay=="number" && this.target.hasClass(this.options.className)){
                 this.delayObj = window.setTimeout(function(){
                     this.target.toggleClass(this.options.className);

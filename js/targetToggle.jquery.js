@@ -17,7 +17,8 @@
             removeOthers:false,
             beforeToggle:function(){},
             animationend:function(){},
-            transitionend:function(){}
+            transitionend:function(){},
+            afterToggle:function(){}
         };
 
 
@@ -33,9 +34,10 @@
             className: this.element.data('class-name'),
             delay: this.element.data('delay'),
             removeOthers: this.element.data('remove-others'),
-            beforeToggle: this.element.data('animationend'),
+            beforeToggle: this.element.data('before-toggle'),
             animationend: this.element.data('animationend'),
-            transitionend: this.element.data('transitionend')
+            transitionend: this.element.data('transitionend'),
+            afterToggle: this.element.data('after-toggle')
         };
 
         this.options = $.extend( {}, defaults, options, dataOptions);
@@ -100,6 +102,8 @@
                     e.stopPropagation();
                 }
             }
+
+            this.options.afterToggle(e);
         }
     };
 

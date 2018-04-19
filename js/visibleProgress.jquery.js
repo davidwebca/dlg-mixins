@@ -13,6 +13,7 @@
             this.loaded = false;
             this.rawProgress = 0;
             this.progress = 0;
+            this.topProgress = 0;
             this.animframe = -1;
             this.scrollframe = -1;
             this.duration = 300;
@@ -42,18 +43,25 @@
         }
     }
 
+
+
     window.visibleProgress.prototype.bindEvents = function(){
         $(window).on('mousewheel.vp scroll.vp resize.vp', function(){
             this.scrollframe = window.requestAnimationFrame(this.calculateVisibleProgress.bind(this));
         }.bind(this));
     }
     window.visibleProgress.prototype.calculateVisibleProgress = function(ev){
+        var startPos = this.el[0].getBoundingClientRect().top;
+        startPos = startPos === 0 ? 0.000001 : startPos; // Avoid division by zero
+        var endPos = $(window).outerHeight()
+        this.topProgress = 1 - (startPos / endPos);
+
         if(this.absolute){
             this.rawProgress = ($(window).scrollTop() - this.absoluteOffset) / this.absoluteMax;
             this.progress = Math.min(Math.max( this.rawProgress , 0), 0.9999);
         }else{
-            var startPos = $(window).outerHeight() - this.el[0].getBoundingClientRect().top;
-            var endPos = $(window).outerHeight() + this.el[0].getBoundingClientRect().height;
+            startPos = $(window).outerHeight() - this.el[0].getBoundingClientRect().top;
+            endPos = $(window).outerHeight() + this.el[0].getBoundingClientRect().height;
             this.rawProgress = startPos / endPos;
             this.progress = Math.min(Math.max( this.rawProgress , 0), 0.9999);
         }

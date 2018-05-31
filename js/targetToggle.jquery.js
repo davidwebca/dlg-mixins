@@ -47,7 +47,7 @@
 
         if(this.options.target == 'self') {
             this.target = this.element;
-        } elseif(this.options.targetChildren) {
+        } else if(this.options.targetChildren) {
             this.target = this.element.find(this.options.target);
         } else {
             this.target = $(this.options.target);
@@ -100,7 +100,7 @@
                     if(this.options.stopPropagation){
                         e.stopPropagation();
                     }
-                }, this.options.delay);
+                }.bind(this), this.options.delay);
             }else{
                 this.target.toggleClass(this.options.className);
                 this.extendedElements.toggleClass('has-'+this.options.className);

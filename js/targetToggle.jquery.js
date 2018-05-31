@@ -10,6 +10,7 @@
         defaults = {
             event: "mouseenter mouseleave",
             target: "self",
+            targetChildren: false,
             preventDefault: false,
             stopPropagation: false,
             className: 'active',
@@ -29,6 +30,7 @@
         var dataOptions = {
             event: this.element.data('event'),
             target: this.element.data('target'),
+            targetChildren: this.element.data('target-children'),
             preventDefault: this.element.data('prevent-default'),
             stopPropagation: this.element.data('stop-propagation'),
             className: this.element.data('class-name'),
@@ -41,7 +43,16 @@
         };
 
         this.options = $.extend( {}, defaults, options, dataOptions);
-        this.target = $(this.options.target);
+
+
+        if(this.options.target == 'self') {
+            this.target = this.element;
+        } elseif(this.options.targetChildren) {
+            this.target = this.element.find(this.options.target);
+        } else {
+            this.target = $(this.options.target);
+        }
+        
         // All who have the same target so we can toggle them all so every element has the same state
         this.extendedElements = $('[data-target="' + this.options.target + '"]');
         this.delayObj = 0;

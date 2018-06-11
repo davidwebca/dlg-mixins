@@ -1,0 +1,6 @@
+@mixin retina {
+	@media only screen and (min-resolution: 192dpi), // IE9-11 don't support dppx
+	only screen and (min-resolution: 2dppx) { // Standardized
+		@content;
+	}
+}

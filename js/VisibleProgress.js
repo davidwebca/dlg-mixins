@@ -25,7 +25,7 @@
     window.CustomEvent = CustomEvent;
 })();
 ;(function(window){
-    VisibleProgress = function(el, absolute, absoluteMax, absoluteOffset){
+     function VisibleProgress(el, absolute, absoluteMax, absoluteOffset){
         if(el instanceof window.Node){
             this.el = el;
             if(typeof window.jQuery !=='undefined' && this.el instanceof jQuery){

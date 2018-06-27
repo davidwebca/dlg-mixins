@@ -26,11 +26,11 @@
 })();
 ;(function(window){
      function VisibleProgress(el, absolute, absoluteMax, absoluteOffset){
+        this.el = el;
+        if(typeof window.jQuery !=='undefined' && this.el instanceof jQuery){
+            this.el = el[0];
+        }
         if(el instanceof window.Node){
-            this.el = el;
-            if(typeof window.jQuery !=='undefined' && this.el instanceof jQuery){
-                this.el = el[0];
-            }
             this.loaded = false;
             this.rawProgress = 0;
             this.progress = 0;
@@ -61,6 +61,8 @@
             if(document.readyState === "complete"){
                 VisibleProgress.triggerScroll(window);
             }
+        }else{
+            console.log('First param needs to be an instance of Element or jQuery');
         }
     }
 

@@ -31,7 +31,7 @@
         if(typeof window.jQuery !=='undefined' && this.el instanceof jQuery){
             this.el = el[0];
         }
-        if(el instanceof window.Element){
+        if(this.el instanceof window.Element){
             this.loaded = false;
             this.rawProgress = 0;
             this.progress = 0;

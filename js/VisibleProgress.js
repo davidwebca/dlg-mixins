@@ -27,11 +27,11 @@
 ;(function(window){
      function VisibleProgress(el, absolute, absoluteMax, absoluteOffset){
         this.el = el;
-        console.log(this.el);
+
         if(typeof window.jQuery !=='undefined' && this.el instanceof jQuery){
             this.el = el[0];
         }
-        if(this.el instanceof window.Element){
+        if(this.el instanceof window.Node){
             this.loaded = false;
             this.rawProgress = 0;
             this.progress = 0;
@@ -63,7 +63,7 @@
                 VisibleProgress.triggerScroll(window);
             }
         }else{
-            console.log('First param needs to be an instance of Element or jQuery');
+            console.log('First param needs to be an instance of Element, Node or jQuery');
         }
     }
 

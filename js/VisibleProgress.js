@@ -126,15 +126,8 @@
         }
     }
     VisibleProgress.prototype.drawProgress = function(){
-        // console.log((this.progress * this.duration * -1).toFixed(2) + 's');
-        // this.el.css({
-        //     'animation-delay': (this.progress * this.duration * -1).toFixed(2) + 's',
-        //     'animation-duration': this.duration + 's'
-        // });
         if(VisibleProgress.loaded){
-            window.requestAnimationFrame(function(){
-                VisibleProgress.ev(this.el, 'visibleProgress.vp', {instance:this})
-            }.bind(this));
+            VisibleProgress.ev(this.el, 'visibleProgress.vp', {instance:this})
         }
     }
 

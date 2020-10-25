@@ -36,10 +36,7 @@
             this.rawProgress = 0;
             this.progress = 0;
             this.topProgress = 0;
-            this.animframe = -1;
             this.scrollframe = -1;
-            this.duration = 300;
-            this.animationName = window.getComputedStyle(this.el)['animation-name'];
 
 
             this.absolute = false;
@@ -79,65 +76,70 @@
     }
 
     VisibleProgress.triggerScroll = function(el){
-        var event = new Event('scroll');
+        if (typeof(Event) === 'function') {
+            var event = new Event('scroll');
+        } else {
+            var event = document.createEvent('Event');
+            event.initEvent('scroll', true, true);
+        }
         el.dispatchEvent(event);
     }
 
     VisibleProgress.prototype.boundEvents = function(){
-        this.scrollframe = window.requestAnimationFrame(this.calculateVisibleProgress.bind(this));
+        this.elTop = this.el.getBoundingClientRect().top;
+        this.elHeight = this.el.getBoundingClientRect().height;
+        this.yOffset = window.pageYOffset;
+        this.wHeight = window.innerHeight;
+
+        if(this.scrollframe == -1){
+            this.scrollframe = window.requestAnimationFrame(this.calculateVisibleProgress.bind(this));
+        }
     }
 
     VisibleProgress.prototype.bindEvents = function(){
-        window.addEventListener('mousewheel', this.boundEvents.bind(this));
+        // window.addEventListener('mousewheel', this.boundEvents.bind(this));
         window.addEventListener('scroll', this.boundEvents.bind(this));
         window.addEventListener('resize', this.boundEvents.bind(this));
+        window.addEventListener('load', this.boundEvents.bind(this));
     }
 
     VisibleProgress.prototype.calculateVisibleProgress = function(ev){
-        var startPos = this.el.getBoundingClientRect().top;
+        var startPos = this.elTop;
         startPos = startPos === 0 ? 0.000001 : startPos; // Avoid division by zero
-        var endPos = window.innerHeight;
+        var endPos = this.wHeight;
+
         this.topProgress = 1 - (startPos / endPos);
 
         if(this.absolute){
-            this.rawProgress = (window.pageYOffset - this.absoluteOffset) / this.absoluteMax;
+            this.rawProgress = (this.yOffset - this.absoluteOffset) / this.absoluteMax;
             this.progress = Math.min(Math.max( this.rawProgress , 0), 0.9999);
         }else{
-            startPos = window.innerHeight - this.el.getBoundingClientRect().top;
-            endPos = window.innerHeight + this.el.getBoundingClientRect().height;
+            startPos = this.wHeight - this.elTop;
+            endPos = this.wHeight + this.elHeight;
             this.rawProgress = startPos / endPos;
             this.progress = Math.min(Math.max( this.rawProgress , 0), 0.9999);
         }
 
-        if(this.progress <= 0 || this.progress >= 0.9999){
-            if(this.animframe!=0){
-                this.animframe = window.requestAnimationFrame(this.drawProgress.bind(this));
-                window.cancelAnimationFrame(this.animframe);
-                this.animframe = 0;
-            }
-        }else{
-            this.animframe = window.requestAnimationFrame(this.drawProgress.bind(this));
+        if(VisibleProgress.loaded){
+            VisibleProgress.ev(this.el, 'progress.vp', {instance:this})
         }
 
-        if(VisibleProgress.loaded){
-            window.requestAnimationFrame(function(){
-                VisibleProgress.ev(this.el, 'progress.vp', {instance:this})
-            }.bind(this));
-        }
-    }
-    VisibleProgress.prototype.drawProgress = function(){
-        if(VisibleProgress.loaded){
-            VisibleProgress.ev(this.el, 'visibleProgress.vp', {instance:this})
-        }
+        this.scrollframe = -1;
     }
 
     /**
-     * VisibleProgress static functions
+     * Avoid painting scroll progress if page isn't loaded
+     * Images and fonts will be changing sizes of things when loaded
+     */
+    window.addEventListener('load', function(){
+        VisibleProgress.loaded = true;
+    });
+
+    /**
+     * iOS Safari pauses rendering for a whole second after scrolling, but this code is still unreliable
      */
     VisibleProgress.previousScrollTop = window.pageYOffset;
     VisibleProgress.verifyMomentumScrollFrame = 0;
-
-    // // iOS Safari pauses rendering for a whole second after scrolling, but this code is still unreliable
     VisibleProgress.verifyMomentumScroll = function(){
         VisibleProgress.previousScrollTop = window.pageYOffset;
         VisibleProgress.verifyMomentumScrollFrame = window.requestAnimationFrame(VisibleProgress.verifyMomentumScroll);
@@ -149,13 +151,8 @@
             VisibleProgress.verifyMomentumScrollFrame = 0;
         }
     }
-
     window.addEventListener('touchend', VisibleProgress.verifyMomentumScroll);
     window.addEventListener('touchstart touchmove touchend', function(ev){
-        VisibleProgress.triggerScroll(window);
-    });
-    window.addEventListener('load', function(){
-        VisibleProgress.loaded = true;
         VisibleProgress.triggerScroll(window);
     });
 

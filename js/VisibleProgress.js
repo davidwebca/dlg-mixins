@@ -86,12 +86,12 @@
     }
 
     VisibleProgress.prototype.boundEvents = function(){
-        this.elTop = this.el.getBoundingClientRect().top;
-        this.elHeight = this.el.getBoundingClientRect().height;
-        this.yOffset = window.pageYOffset;
-        this.wHeight = window.innerHeight;
-
         if(this.scrollframe == -1){
+            this.elTop = this.el.getBoundingClientRect().top;
+            this.elHeight = this.el.getBoundingClientRect().height;
+            this.yOffset = window.pageYOffset;
+            this.wHeight = window.innerHeight;
+            
             this.scrollframe = window.requestAnimationFrame(this.calculateVisibleProgress.bind(this));
         }
     }

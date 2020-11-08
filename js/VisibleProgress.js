@@ -25,7 +25,7 @@
     window.CustomEvent = CustomEvent;
 })();
 ;(function(window){
-     function VisibleProgress(el, absolute, absoluteMax, absoluteOffset){
+     function VisibleProgress(el, absolute, absoluteMax, absoluteOffset, lerpValue){
         this.el = el;
 
         if(typeof window.jQuery !=='undefined' && this.el instanceof jQuery){
@@ -37,6 +37,8 @@
             this.progress = 0;
             this.topProgress = 0;
             this.scrollframe = -1;
+            this.lerpFrame = -1;
+            this.lerpProgress = -1;
 
 
             this.absolute = false;
@@ -52,6 +54,11 @@
             this.absoluteOffset = 0;
             if(typeof absoluteOffset != "undefined"){
                 this.absoluteOffset = absoluteOffset;
+            }
+
+            this.lerpValue = 1;
+            if(typeof lerpValue != "undefined") {
+                this.lerpValue = lerpValue;
             }
 
             this.bindEvents();
@@ -124,7 +131,34 @@
             VisibleProgress.ev(this.el, 'progress.vp', {instance:this})
         }
 
+        /**
+         * Do not trigger lerp if isn't loaded,
+         * lerpValue is to its default,
+         * the progress is not "inside" the animation
+         */
+        if(VisibleProgress.loaded && this.lerpValue !==1 && this.progress >= 0.000001 && this.progress <= 0.9999) {
+            this.lerp();
+        }
+
         this.scrollframe = -1;
+    }
+
+    VisibleProgress.prototype.lerp = function() {
+        if(this.lerpProgress == -1) {
+            this.lerpProgress = this.progress;
+        }
+
+        var diff = this.progress - this.lerpProgress;
+
+        this.lerpProgress += (this.progress - this.lerpProgress) * this.lerpValue; 
+        VisibleProgress.ev(this.el, 'lerp.vp', {instance:this})
+
+        if (Math.abs(diff) > 0.000005) {
+            this.lerpFrame = window.requestAnimationFrame(this.lerp.bind(this));
+        } else if (this.lerpFrame) {
+            window.cancelAnimationFrame(this.lerpFrame);
+            this.lerpFrame = -1;
+        }
     }
 
     /**

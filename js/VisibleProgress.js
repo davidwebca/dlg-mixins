@@ -128,7 +128,7 @@
         }
 
         if(VisibleProgress.loaded){
-            VisibleProgress.ev(this.el, 'progress.vp', {instance:this})
+            VisibleProgress.ev(this.el, 'progress', {instance:this})
         }
 
         /**
@@ -151,7 +151,7 @@
         var diff = this.progress - this.lerpProgress;
 
         this.lerpProgress += (this.progress - this.lerpProgress) * this.lerpValue; 
-        VisibleProgress.ev(this.el, 'lerp.vp', {instance:this})
+        VisibleProgress.ev(this.el, 'lerp', {instance:this})
 
         if (Math.abs(diff) > 0.000005) {
             this.lerpFrame = window.requestAnimationFrame(this.lerp.bind(this));

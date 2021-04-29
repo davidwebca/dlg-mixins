@@ -78,6 +78,7 @@
                     this.options.transitionend(e, this);
                 }
             }.bind(this));
+            this.element.addClass('target-toggle-enabled');
         },
 
         toggle: function(e){
